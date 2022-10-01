@@ -76,4 +76,4 @@ We can use <mark>“”</mark> at the end of an .ssh command to just run it with
 
 ![image](12.png)
 
-# Gye~~~
+# Bye~~~
