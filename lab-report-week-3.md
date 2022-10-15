@@ -101,5 +101,4 @@ Except: {“a”, “b”,“c”, “d”,  “y”,  “z”}.
 
 Symptoms: java.lang.OutOfMemoryError: Java heap space.
 
-Bug: In line 43, the code is “index1 += 1”, but for this loop, it is supposed to traverse List 2, so the loop can not be ended when it does not have the increment variable index2.
-
+Bug: In line 43, the code is “index1 += 1”, but for this loop, it is supposed to traverse List 2, so the loop can not be ended when it does not have the increment variable index2. So, we just need to change the “index1 +=1” to “index2 +=1”.
