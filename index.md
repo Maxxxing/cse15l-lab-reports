@@ -1,128 +1,252 @@
-# __Week 3 Lab Report__
+# __Week 5 Lab Report__
 
-## Part 1 - Search Engine
-### Code for Search Engine:
+## Command-line options for `find`
 
-```  
-import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
+<br>
 
-class Handler implements URLHandler {
-    // The one bit of state on the server: a number that will be manipulated by
-    // various requests.
-    ArrayList<String> str = new ArrayList<String>();
-        
-    int size = 0;
-    public String handleRequest(URI url) {
-        if (url.getPath().equals("/")) {
-            return String.format("Array List: " + str);
-        } else if (url.getPath().contains("/add")) {
-            String[] parameters = url.getQuery().split("=");
-            if (parameters[0].equals("s")) {  
-                str.add(parameters[1]);
-                return String.format("Array List added by \"" + parameters[1] + "\". It's now "+ str);
-            }
-            return "404 Not Found!";
-        } else {
-            System.out.println("Path: " + url.getPath());
-            if (url.getPath().contains("/search")) {
-                String[] parameters = url.getQuery().split("=");
-                if (parameters[0].equals("s")) {
-                    ArrayList<String> result = new ArrayList<String>();
-                    for(int i = 0; i < str.size(); i++){
-                        if(str.get(i).indexOf(parameters[1]) != -1){
-                            result.add(str.get(i));
-                        }
-                    }
-                    return String.format("The search result of \"" + parameters[1] + "\" is/are: " + result);
-                }
-            }
-            return "404 Not Found!";
-        }
-    }
-}
+### Example 1:
+Code: 
+```
+find technical/ -iname "CHAPTER.txt"`
+```
+Output: 
 
-public class SearchEngine {
-    public static void main(String[] args) throws IOException {
-        if(args.length == 0){
-            System.out.println("Missing port number! Try any number between 1024 to 49151");
-            return;
-        }
-
-        int port = Integer.parseInt(args[0]);
-
-        Server.start(port, new Handler());
-    }
-} 
+```
+technical/911report/chapter-1.txt
 ```
 
+Explaination:
 
-### Testcase Output:
+The function of the command-line option `-iname` for `find` is very similar to `-name` that it can search for files by specific name and ignore case. Different file writers may have different naming conventions, which can be effectively avoided this situation by this command-line.
 
-This is the original page for the Search Engine web server that shows an empty array list. It called the `handleRequest()` method, based on the parameter `URI url` to print our the array list.
+<br>
 
-![image](w3-1.png)
+### Example 2:
+Code: 
+```
+find technical/ -type d
+```
 
-This screenshot shows the Search Engine web server page after we add an “add” query behind the original url `localhost:4000`. Here add an element “apple” into the array list. 
-It called the `handleRequest()` method, and get the value after the symbol `=` based on the parameter `URI url`, then added it into the array lsit. 
+Output:
+```
+technical/
+technical/911report
+technical/biomed
+technical/government
+technical/government/About_LSC
+technical/government/Alcohol_Problems
+technical/government/Env_Prot_Agen
+technical/government/Gen_Account_Office
+technical/government/Media
+technical/government/Post_Rate_Comm
+technical/plos
+```
 
-![image](w3-2.png)
+Explaination:
 
-The below screenshot shows the Search Engine web server page after we add another “add” query behind the original url `localhost:4000`. A new element “pineapple” be added into the array list. 
-It called the `handleRequest()` method, and get the value after the symbol `=` based on the parameter `URI url`, then added it into the array lsit.
+The function of the command-line option `-type` for `find` is search different type of objects by different key value, such like `d` for folder, `f` for normal file and so on. This command line can help us quickly find special objects which we want. 
 
-![image](w3-3.png)
+<br>
 
-This screenshot shows the Search Engine web server page after we add another “add” query behind the original url `localhost:4000`. The same array list becomes [apple, pineapple, bana].
-It called the `handleRequest()` method, and get the value after the symbol `=` based on the parameter `URI url`, then added it into the array lsit.
+### Example 3:
+Code: 
+```
+echnical/ -type f -size +110k -size -200k
+```
 
+Output:
+```
+technical/911report/chapter-1.txt
+technical/911report/chapter-12.txt
+technical/911report/chapter-13.3.txt
+technical/911report/chapter-6.txt
+technical/911report/chapter-7.txt
+technical/911report/chapter-9.txt
+technical/biomed/1471-2105-3-2.txt
+technical/government/About_LSC/State_Planning_Report.txt
+technical/government/Env_Prot_Agen/ctm4-10.txt
+technical/government/Env_Prot_Agen/multi102902.txt
+technical/government/Env_Prot_Agen/tech_adden.txt
+technical/government/Gen_Account_Office/May1998_ai98068.txt
+technical/government/Gen_Account_Office/Sept27-2002_d02966.txt
+technical/government/Gen_Account_Office/ai9868.txt
+technical/government/Gen_Account_Office/d01376g.txt
+technical/government/Gen_Account_Office/d0269g.txt
+technical/government/Gen_Account_Office/d02701.txt
+technical/government/Gen_Account_Office/im814.txt
+technical/government/Gen_Account_Office/pe1019.txt
+```
 
-![image](w3-4.png)
+Explaination:
 
-This screenshot shows the web server page after we add another “search” query behind the original url `localhost:4000`. This query will check if the searched argument (after `search?s=`) is the subString of every element in the array list (the array list has been added “apple”, “pineapple” and “banana” respectively). As the result, there returns and shows a new array list that includes every element which contains the searched argument “app”. 
-It called the `handleRequest()` method, and get the value after the symbol `=` based on the parameter `URI url`, then searched if any element in the array list contains the searched.
-
-![image](w3-5.png)
-
-
-This screenshot shows the “search” query that does not find any element containing the searched argument “yyy” from the array list, and returns an empty result. 
-It called the `handleRequest()` method, and get the value after the symbol `=` based on the parameter `URI url`, then searched if any element in the array list contains the searched.
-
-![image](w3-6.png)
-
-
-## Part 2 - Bugs
-
-### The reverseInPlace() method from the ArrayExamples.java:
-
-The failure-inducing input: {1,5,9}.
-
-Except: {9,5,1}.
-
-Symptoms:
-
-![image](w3-symptoms1.png)
-
-
-Bug: The changes happened in the original array. The first element will be lost. There needs to initialized a new int variable `temp` to store the value of `arr[arr.length - i - 1]`, then let `arr[arr.length - i - 1] = arr[i]` and `arr[i] = temp`. And, change the for loop range to `i < arr.length/2` as the screenshot in the below part.
-
-Fixed Code:
-
-![image](w3-fixed-code.png)
+The function of the command-line option `-size` for `find` is search different files by size. In this example, the command-line is try to search all the normal files which have the size between 110kb to 200kb.
 
 
-### The merge() method from the ListExamples.java:
-The failure-inducing input: L1 = {“a”, “b”, “y”}, L2 = {“c”, “d”, “z”}.
 
-Except: {“a”, “b”,“c”, “d”,  “y”,  “z”}.
 
-Symptoms:
+<br>
+<br>
+<br>
 
-![image](w3-symptoms.png)
+## Command-line options for `less`
 
-Bug: In line 43, the code is `index1 += 1`, but for this loop, it is supposed to traverse List 2, so the loop can not be ended when it does not have the increment variable `index2`. So, we just need to change the `index1 +=1` to `index2 +=1`.
+<br>
 
-Fixed Code:
+### Example 1:
+Code: 
+```
+less -N findName.txt
+```
+Output:
+```
+      1 technical/911report/chapter-1.txt
+      2 technical/911report/chapter-10.txt
+      3 technical/911report/chapter-11.txt
+      4 technical/911report/chapter-12.txt
+      ...
+      ...
+```
+Explaination:
 
-![image](w3-fixed-code2.png)
+The function of the command-line option `-N` for `less` shows the number of lines in the `findName.txt`. This option can help users to have a better reading experience and will not be lost in `less` pages.   
+
+
+<br>
+
+### Example 2:
+Code: 
+
+```
+less -E findName.txt
+```
+
+Output:
+```
+NONE
+```
+
+Explaination:
+
+The function of the command-line option `-E` for `less` is close the `less` page automatically when the page jump to the end of the file, and go back to the original terminal page. It could be helpful for beginners who don't know how to use `Ctrl+z` or type `q` to get back to the initial terminal.
+
+<br>
+
+### Example 3:
+Code: 
+```
+less -m findName.txt
+```
+
+Output:
+
+```
+...
+...
+technical/biomed/1471-2105-4-25.txt
+technical/biomed/1471-2105-4-26.txt
+technical/biomed/1471-2105-4-27.txt
+technical/biomed/1471-2105-4-28.txt
+technical/biomed/1471-2105-4-31.txt
+technical/biomed/1471-2121-1-2.txt
+technical/biomed/1471-2121-2-1.txt
+5%
+```
+
+Explaination:
+
+The command-line option `-m` for `less` will display a percentage number which present the current position in the file. This option can help users to have a better reading experience.
+
+
+<br>
+<br>
+<br>
+
+## Command-line options for `grep`
+
+<br>
+
+### Example 1:
+Code: 
+```
+grep -b "chapter" findName.txt
+```
+
+Output:
+```
+0:technical/911report/chapter-1.txt
+34:technical/911report/chapter-10.txt
+69:technical/911report/chapter-11.txt
+104:technical/911report/chapter-12.txt
+139:technical/911report/chapter-13.1.txt
+176:technical/911report/chapter-13.2.txt
+213:technical/911report/chapter-13.3.txt
+250:technical/911report/chapter-13.4.txt
+287:technical/911report/chapter-13.5.txt
+324:technical/911report/chapter-2.txt
+358:technical/911report/chapter-3.txt
+392:technical/911report/chapter-5.txt
+426:technical/911report/chapter-6.txt
+460:technical/911report/chapter-7.txt
+494:technical/911report/chapter-8.txt
+528:technical/911report/chapter-9.txt
+```
+
+Explaination:
+
+The command-line option `-b` for `grep` outputs the search results and provides the number of rows per line of results. It is helpful because it support to search special word and point its position out.
+
+<br>
+
+### Example 2:
+Code: 
+```
+grep -i "CHAPTER" findName.txt
+```
+
+Output:
+```
+technical/911report/chapter-1.txt
+technical/911report/chapter-10.txt
+technical/911report/chapter-11.txt
+technical/911report/chapter-12.txt
+technical/911report/chapter-13.1.txt
+technical/911report/chapter-13.2.txt
+technical/911report/chapter-13.3.txt
+technical/911report/chapter-13.4.txt
+technical/911report/chapter-13.5.txt
+technical/911report/chapter-2.txt
+technical/911report/chapter-3.txt
+technical/911report/chapter-5.txt
+technical/911report/chapter-6.txt
+technical/911report/chapter-7.txt
+technical/911report/chapter-8.txt
+technical/911report/chapter-9.txt
+```
+
+Explaination:
+
+The function of the command-line option `-i` for `grep` is very similar to `-iname` for `find` that it can search for context by specific input and ignore case. It is helpful beacause we always capitalize the first word of a sentence, the normal search will make some data be lost.
+
+
+### Example 3:
+Code: 
+```
+grep -c "chapter" findName.txt
+```
+
+Output:
+```
+16
+```
+
+Explaination:
+
+The command-line option `-c` for `grep` counts the number of the searched word appear and print it out. It is really helpful when we do not want to know the exactly content of the searched word, and we can get the number of it appear in an easy way.
+
+
+
+
+
+
+
+
