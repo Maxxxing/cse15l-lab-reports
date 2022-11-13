@@ -51,6 +51,32 @@ After completing all the above steps, we have achieved the goal of the task, whi
 
 <br>
 
+It took me 44.18 seconds to complete everything in the first style. The problem with this process is that it would have taken me a lot more time if I hadn't prepared the **scp** code in advance.
+
+<br>
+
+
+Meanwhile, I spent a total of 36.07 seconds in the second style. Using **Vim** to edit a document on a remote server seems like a faster way, but I spent more time moving the cursor and editing. Obviously, it takes more time for newcomers to become familiar with **Vim**'s various operations.
+
+<br>
+
+
+<br>
+
+
+**Which of these two styles would you prefer using if you had to work on a program that you were running remotely, and why?**
+
+If I have to work on a program remotely, I would like to choose the first style which is start in Visual Studio Code and make the edit there, then scp the file to the remote server. It is because of there are lots of extension tools in the VS Code, such like auto indent, syntax check and so on. This allows me to edit and review the code more quickly.
+
+
+<br>
+
+
+**What about the project or task might factor into your decision one way or another? (If nothing would affect your decision, say so and why!)**
+
+I think the amount of work I have to do with the code will influence my decision. If the document already exists here and I only need to make some brief edits and changes, I will choose to work in a remote server. Otherwise, I will work on the VS Code, which more familiar to me and has a better user interface. If I need to use some syntax or environment that is not available on my local server, and I do not want to install them, I will choose to work on a remote server. 
+
+
 
 
 
