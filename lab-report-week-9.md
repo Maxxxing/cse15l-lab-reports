@@ -84,6 +84,8 @@ Stderr: none
 
 Return code: 0
 
+<br>
+
 
 `git clone $1 student-submission` : 
 
@@ -95,6 +97,9 @@ Stderr: none
 
 Return code: 0
 
+<br>
+
+
 `echo 'Finished cloning'` :
 
 This line outputed "Finished cloning", means it finished the cloning.
@@ -104,6 +109,9 @@ Stdout: "Finished cloning"
 Stderr: none
 
 Return code: 0
+
+<br>
+
 
 `cp TestListExamples.java student-submission/` :
 
@@ -115,7 +123,11 @@ Stderr: none
 
 Return code: 0
 
+<br>
+
+
 `cp -r lib student-submission/` :
+
 This line copied every files and folders in the folder of lib into the folder of student-submission.
 
 Stdout: none
@@ -124,7 +136,11 @@ Stderr: none
 
 Return code: 0
 
+<br>
+
+
 `cd student-submission` :
+
 This line entered the folder of student-submission.
 
 Stdout: none
@@ -133,8 +149,15 @@ Stderr: none
 
 Return code: 0
 
+<br>
+
+
 ` if [[ -e ListExamples.java ]] ` :
+
 This if statement was true since there exist a file named ListExamples.java.
+
+<br>
+
 
 ` echo "file found"` :
 
@@ -144,13 +167,22 @@ Stderr: none
 
 Return code: 0
 
+<br>
+
+
 `echo "file ListExample.java not found"` :
 
 Does not run.
 
+<br>
+
+
 `exit 1` :
 
 Does not run.
+
+<br>
+
 
 `javac -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar *.java &> compile.txt` :
 
@@ -162,9 +194,15 @@ Stderr: none
 
 Return code: 0
 
+<br>
+
+
 `if [ $? -eq 0 ]` :
 
 This if statement was true since the code returned in the previous statement is 0.
+
+<br>
+
 
 `echo "Compile successfully"` :
 
@@ -173,6 +211,9 @@ Stdout: "Compile successfully"
 Stderr: none
 
 Return code: 0
+
+<br>
+
 
 `java -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar org.junit.runner.JUnitCore TestListExamples &> result.txt` :
 
@@ -184,9 +225,15 @@ Stderr: none
 
 Return code: 0
 
+<br>
+
+
 `if grep "OK" result.txt`:
 
 This if statement was true since the result.txt contains "OK".
+
+<br>
+
 
 `echo "You get 100 out of 100 points!"` :
 
@@ -196,34 +243,58 @@ Stderr: none
 
 Return code: 0
 
+<br>
+
+
 `if grep -i "FAILURES" result.txt ` :
 
 This if statement was false since the result.txt doest not contain "FAILURES".
+
+<br>
+
 
 ` if grep -i "FAILURES: 1" result.txt` 
 
 Does not run.
 
+<br>
+
+
 `echo "You get 50 out of 100 point."` ：
 
 Does not run.
+
+<br>
+
 
 `echo "You get 0 out of 100 points."` :
 
 Does not run.
 
+<br>
+
+
 `cat compile.txt` :
 
 Does not run.
 
+<br>
+
+
 `echo "Compile error"` :
 
 Does not run.
-    
+
+<br>
+
+   
 `echo "Failed"` :
 
 Does not run.
-    
+
+<br>
+
+   
 `exit 1` ：
 
 Does not run.
